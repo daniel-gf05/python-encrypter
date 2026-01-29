@@ -1,12 +1,19 @@
-from Crypto.Hash import SHA256
+import sys
+import utils
 
-print("HASHING APP TEST")
+def main():
+    
+    print("HASHING APP TEST")
 
-m = SHA256.new()
-passwd = "abc".encode()
-m.update(passwd)
-m.digest()
-hashed_passwd = m.hexdigest()
+    if(len(sys.argv)<=1):
+        print("Not enough args")
+        return
 
-print("before-> " + str(passwd))
-print("after-> " + hashed_passwd)
+    passwd = str(sys.argv[1])
+    hashed_passwd = utils.encrypt(passwd)
+
+    hashed_passwd_json = utils.buildJson(passwd, hashed_passwd)
+    print("Your hashed passwd is: " + hashed_passwd)
+    print(hashed_passwd_json)
+    
+main()
